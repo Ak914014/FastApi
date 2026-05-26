@@ -17,6 +17,11 @@ def get_products():
 
 @app.get(("/product/{product_id}"))
 def get_product(product_id:int):
+
+    # if product available ttwith the id , return product , else return error message.
+
+    product = None
+    
     return {
         "count":product_id,
     }

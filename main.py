@@ -68,7 +68,35 @@ def create_product(data:productDTO):
     return{"status":"product created succsfully", "data":products}
 
 
+@app.put("/update_product/{product_id}")
+def update_product(product_data: productDTO, product_id: int):
+# enumerate in python can show the index of the data and the index and data both 
+    for index, oneProduct in enumerate(products):
+        if oneProduct.get("id") == product_id:
+            products[index] = product_data.model_dump()   ## used  model_dump beacuse i'm seding the product data direclity not in the dict form so use this 
+            return{"status":"product update successfully..", "product":product_data}
 
+    return {
+        "error":"Product is not updated..."
+    }
+
+
+@app.delete("/delete_product/{product_id}")
+def delete_product(product_id: int):
+    
+    for index, one_product in enumerate(products):
+        
+        if one_product.get("id") == product_id:
+            deleted_product = products.pop(index)
+
+            return {
+                "status": "product deleted successfully",
+                "product": deleted_product
+            }
+
+    return {
+        "error": "product not found"
+    }    
 # with this we can handel the data manuplation
 ##   pydentic  ##
 
